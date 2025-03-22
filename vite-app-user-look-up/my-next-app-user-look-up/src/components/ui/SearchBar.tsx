@@ -1,3 +1,9 @@
+// При использовать SearchBar в серверных компонентах Next.js
+// переношу его в клиентский компонент - добавляю 'use client'; сверху.
+// (В Next.js все компоненты по умолчанию серверные. Если используются
+//  useState и useEffect, то обязательно добавляется 'use client')
+
+'use client';
 import React from 'react';
 
 interface SearchBarProps {

@@ -6,9 +6,17 @@
 // •	При клике на имя пользователя, переходим на страницу 
 //      с его подробной информацией через ссылку <Link to={/user/${user.id}}>.
 
+// Добавила состояние query, чтобы отслеживать текст поискового запроса.
+// Компонент SearchBar теперь находится внутри HomePage и передается пропс query 
+// для отображения текущего значения поиска. Также, через пропс onSearchChange, 
+// обновляется состояние query при изменении текста в поле ввода.
+// В переменную filteredUsers записывается результат фильтрации пользователей. 
+// Используется метод filter(), чтобы отфильтровать пользователей по имени на основе введенного поискового запроса
+
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button"; // Импортируем компонент Button из ShadCN UI
+import SearchBar from '@/components/ui/SearchBar'; // Импортируем компонент поиска
 
 interface User {
     id: number;
@@ -22,6 +30,7 @@ interface User {
 const HomePage: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [query, setQuery] = useState<string>(''); // Состояние для запроса поиска
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -39,20 +48,27 @@ const HomePage: React.FC = () => {
         fetchUsers();
     }, []);
 
+    // Фильтрация пользователей по поисковому запросу
+    const filteredUsers = users.filter(user =>
+        user.name.toLowerCase().includes(query.toLowerCase())
+    );
+
     return (
         <div>
             <h1>Users List</h1>
+            {/* Добавляем компонент SearchBar */}
+            <SearchBar query={query} onSearchChange={setQuery} />
+
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                         <div key={user.id} className="border p-4 rounded shadow-md">
                             <h2 className="font-semibold text-lg">{user.name}</h2>
                             <p>Email: {user.email}</p>
                             <p>Company: {user.company.name}</p>
                             <Link to={`/user/${user.id}`}>
-                                {/* Кнопка ShadCN UI. Внутри карточки, мы заменяем ссылку на кнопку ShadCN UI, обернув ее в компонент Link для маршрутизации.*/}
                                 <Button className="mt-4">
                                     View Details
                                 </Button>
