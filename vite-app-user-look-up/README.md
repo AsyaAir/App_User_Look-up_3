@@ -52,3 +52,34 @@ export default tseslint.config({
   },
 })
 ```
+1. cd WORKS_ITGirls/Internship_17.03-13.04.2025/App_User_Look-up_3/vite-app-user-look-up
+
+2. npm create vite@latest. npm run dev
+  a framework:
+│  React
+a variant:
+│  TypeScript
+
+3. npm install tailwindcss @tailwindcss/vite. npm run dev
+
+4. vite-app-user-look-up % npm install --save-dev @types/node.  npm run dev
+ VITE v6.2.2  ready in 142 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+
+5. npm install --save-dev @types/node
+
+6. npx shadcn@latest add button. npm run dev
+✔ You need to create a components.json file to add components. Proceed? … yes
+✔ Which color would you like to use as the base color? › Neutral
+✔ Writing components.json.
+NB: It looks like you are using React 19. 
+Some packages may fail to install due to peer dependency issues in npm (see https://ui.shadcn.com/react-19).
+
+7. npm install react-router-dom
+npm install --save-dev @types/react-router-dom
+
+8. npx shadcn@latest add card
+
+9. rm -rf node_modules/.vite
