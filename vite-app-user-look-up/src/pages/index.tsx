@@ -6,14 +6,17 @@
 // •	При клике на имя пользователя, переходим на страницу 
 //      с его подробной информацией через ссылку <Link to={/user/${user.id}}>.
 
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button"; // Импортируем компонент Button из ShadCN UI
 
 interface User {
     id: number;
     name: string;
-    username: string;
     email: string;
+    company: {
+        name: string;
+    };
 }
 
 const HomePage: React.FC = () => {
@@ -42,57 +45,24 @@ const HomePage: React.FC = () => {
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
-                <ul>
-                    {users.map(user => (
-                        <li key={user.id}>
-                            <Link to={`/user/${user.id}`}>{user.name}</Link> {/* Ссылка на страницу пользователя */}
-                        </li>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {users.map((user) => (
+                        <div key={user.id} className="border p-4 rounded shadow-md">
+                            <h2 className="font-semibold text-lg">{user.name}</h2>
+                            <p>Email: {user.email}</p>
+                            <p>Company: {user.company.name}</p>
+                            <Link to={`/user/${user.id}`}>
+                                {/* Кнопка ShadCN UI. Внутри карточки, мы заменяем ссылку на кнопку ShadCN UI, обернув ее в компонент Link для маршрутизации.*/}
+                                <Button className="mt-4">
+                                    View Details
+                                </Button>
+                            </Link>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );
 };
 
 export default HomePage;
-
-// import React from 'react';
-// import ReactDOM from 'react-dom/client';
-// import App from './App'; // Импортирую App.tsx
-
-// // Это точка входа, где рендерится приложение
-// const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-// root.render(
-//     <React.StrictMode>
-//         <App /> {/* Рендерю App.tsx */}
-//     </React.StrictMode>
-// );
-
-// import { useEffect, useState } from "react";
-// import { fetchUsers } from "@/api/users";
-// import { User } from "@/types/user";
-// import { UserCard } from "@/components/UserCard";
-
-// export default function HomePage() {
-//     const [users, setUsers] = useState<User[]>([]);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState("");
-
-//     useEffect(() => {
-//         fetchUsers()
-//             .then(setUsers)
-//             .catch(() => setError("Ошибка загрузки данных"))
-//             .finally(() => setLoading(false));
-//     }, []);
-
-//     if (loading) return <p>Загрузка...</p>;
-//     if (error) return <p className="text-red-500">{error}</p>;
-
-//     return (
-//         <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-//             {users.map((user) => (
-//                 <UserCard key={user.id} user={user} />
-//             ))}
-//         </div>
-//     );
-// }

@@ -105,3 +105,10 @@ npx shadcn@latest add card
 rm -rf node_modules/.vite
 
 10. npm install framer-motion
+
+11. npx shadcn@latest init
+find . -name "components.json"
+rm ./components.json
+npx shadcn@latest init
+
+12.  

@@ -4,6 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App'; // Импортируем App.tsx
+import "tailwindcss";
 
 // Это точка входа, где рендерится приложение
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
